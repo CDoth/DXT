@@ -135,7 +135,7 @@ bool DXT::connect(int port, const char *address) {
     DL_INFO(1, "connected");
     return true;
 }
-bool DXT::newConnection(int port) {
+bool DXT::newConnection(int port) const {
     if( __type == UDP ) {
         DL_WARNING(1, "There is UDP state");
         return false;

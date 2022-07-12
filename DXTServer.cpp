@@ -84,7 +84,7 @@ bool DXTServer::acceptIncoming(int port, int block) {
 
     return false;
 }
-bool DXTServer::checkIncomingConnection(int port) {
+bool DXTServer::checkIncomingConnection(int port) const  {
 
     auto i = socket_map.find(port);
     if(i == socket_map.end()) {

@@ -23,7 +23,7 @@ public:
     bool isOpen(int port);
     bool create(int port);
     bool acceptIncoming(int port, int block = 0);
-    bool checkIncomingConnection(int port);
+    bool checkIncomingConnection(int port) const;
     bool getAccepted(boundSocket &inLastAccepted);
 private:
 

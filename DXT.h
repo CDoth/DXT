@@ -3,42 +3,6 @@
 #include "DXTServer.h"
 
 
-/*
- * bind, listen, socket, connect, accept, select
- *
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ TCP CLIENT
- * <bind> - implicit using by <connect> or using by user before <connect>
- * <listen> - no
- * <socket> - creating with socket(AF_INET, SOCK_STREAM, 0)
- * <connect> - use for connecting
- * <accept> - no
- * <select> - using for check read/write
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ UDP CLIENT
- * <bind> - implicit using by <sendto> or using by user before <sendto>
- * <listen> - no
- * <socket> - creating with socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP/0)
- * <connect> - unnecessary but can use
- * <accept> - no
- * <select> - using for check read/write
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ TCP SERVER
- * <bind> - use for listen socket
- * <listen> - make socket listen
- * <socket> - creating with socket(AF_INET, SOCK_STREAM, 0)
- * <connect> - no
- * <accept> - create new connection socket
- * <select> - using for check read/write and for checking incoming connections
- * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ UDP SERVER
- * <bind> - use after creating socket to bind to local port
- * <listen> - no
- * <socket> - creating with socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP/0)
- * <connect> - unnecessary but can use (receive datagrams for single peer address)
- * <accept> - no
- * <select> - using for check read/write
- *
-*/
-
-
-
 class DXT {
 public:
     enum Type {
@@ -55,23 +19,6 @@ public:
     DXT(boundSocket s);
     ~DXT();
 public:
-    /*
-     * bind:
-     * bind x bind
-     * accept x bind
-     * connect x bind
-     *
-     * accept:
-     * bind x accept
-     * accept x accept
-     * connect x accept
-     *
-     * connect:
-     * bind -> connect
-     * accept x connect
-     * connect x connect
-     *
-    */
 
     bool makeServer(int port);
     ///
@@ -93,7 +40,7 @@ public:
     /// \return
     /// Only in Empty or Bound state
     bool connect(int port, const char *address);
-    bool newConnection(int port);
+    bool newConnection(int port) const;
     bool blockingAccept(int port);
     bool blockingAccept(int port, int timeout_s);
     bool changeType(Type t);
